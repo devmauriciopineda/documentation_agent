@@ -1,0 +1,75 @@
+[tool.flake8]
+max-line-length = 88            # Maximum line length for the code
+verbose = 1                     # Show the source code for each error
+quiet = 0                       # Show the total number of errors
+format = "default"              # Output format
+count = true                    # Show the total number of errors
+show-source = true              # Show the source code generating the error
+statistics = true               # Show the total number of errors
+docstring-convention = "google" # Docstring convention to use
+ 
+# Exlude the following directories from linting
+exclude = [
+    ".git",
+    "__pycache__",
+    ".mypy_cache",
+    "env",
+    ".env",
+    "venv",
+    ".venv",
+]
+ 
+# Use extend-ignore to add to already ignored checks.
+extend-ignore = [
+    # General checks
+    "E203", # Ignore whitespace before ':'
+    "E133", # Ignore closing bracket is missing indentation
+    "W503", # Ignore line break before binary operator
+ 
+    # Docstring checks
+    "D100", # Ignore missing docstring in public module
+    "D101", # Ignore missing docstring in public class
+    "D102", # Ignore missing docstring in class
+    "D103", # Ignore missing docstring in function,
+    "D104", # Ignore missing docstring in public package
+    "D106", # Ignore missing docstring in public nested class
+    "D202", # Ignore no blank lines allowed after function docstring,
+    "D212", # Ignore multi-line docstring summary should start at the second line
+]
+ 
+ 
+[tool.black]
+line-length = 88
+skip-string-normalization = true
+target-version = ['py38', 'py39', 'py310', 'py311', 'py312']
+ 
+# Exlude the following directories from formatting
+exclude = '''
+/(
+    \.git
+  | \.mypy_cache
+  | \.pytest_cache
+  | __pycache__
+  | build
+  | dist
+  | env
+  | venv
+  | \.venv
+  | \.env
+)/
+'''
+ 
+[tool.isort]
+profile = "black" # Use black for sorting imports
+ 
+# Exlude the following directories from sorting imports
+skip = [
+    ".git",
+    "__pycache__",
+    ".pytest_cache",
+    ".mypy_cache",
+    "env",
+    "venv",
+    ".venv",
+    ".env",
+]
