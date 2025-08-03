@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from schemas.schemas import DocsInfo
+from controllers import process_controller
 
 router = APIRouter(prefix="/api/v1", tags=["process"])
 
@@ -9,12 +10,14 @@ async def process_documentation(docs_info: DocsInfo):
     """
     Endpoint to process documentation.
     """
-    return {"message": "Documentation processed successfully."}
+    answer = process_controller.process_documents(docs_info)
+    return {"answer": answer}
 
 
-@router.get("/processing-status/{chatId}")
-async def get_processing_status(chatId: str):
+@router.get("/processing-status/{task_id}")
+async def get_processing_status(task_id: str):
     """
     Endpoint to get processing status.
     """
-    return {"status": "processing"}
+    answer = process_controller.get_task_status(task_id)
+    return answer

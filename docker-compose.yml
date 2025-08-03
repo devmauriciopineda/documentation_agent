@@ -3,6 +3,16 @@ networks:
     driver: bridge
 
 services:
+  qdrant:
+    image: qdrant/qdrant:v1.14.0
+    ports:
+      - '6343:6333' # Qdrant HTTP port
+      - '6344:6334' # Qdrant gRPC port
+    volumes:
+      - ../qdrant_docs/database:/qdrant/storage
+    networks:
+      - docs_agent
+
   postgres:
     image: postgres:16
     ports:
@@ -53,27 +63,41 @@ services:
       - '8002:80'
 
   worker:
-    # build: .
     build:
       context: .
       dockerfile: Dockerfile
     env_file:
       - ./app/.env
     command: >
-      sh -c "celery -A app.worker:app worker --loglevel=info"     
+      sh -c "celery -A app.celery_tasks.worker:app worker --loglevel=info"     
     volumes:
       - .:/app
     networks:
       - docs_agent
     depends_on:
-      # - qdrant
+      - qdrant
       - rabbitmq
       - redis
       - app
 
+  flower:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: >
+      sh -c " pip install celery flower && celery -A app.celery_tasks.worker:app flower --port=5555"
+    env_file:
+      - ./app/.env
+    ports:
+      - 5555:5555
+    depends_on:
+      - app
+      - worker
+    networks:
+      - docs_agent
+
 
 volumes:
-  # qdrant_data:
-  # postgres_data:
+  qdrant_docs:
   postgres_data:
   redis_data:
