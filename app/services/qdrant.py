@@ -54,8 +54,8 @@ def search(query_vector, filter, limit: Optional[int] = MAX_CHUNKS_RETRIEVED):
     return points
 
 
-def filter_by_chat_id(chat_id: int) -> models.Filter:
-    """Create a filter for the specified project."""
+def filter_by_chat_id(chat_id: str) -> models.Filter:
+    """Create a filter for the specified chat."""
     return models.Filter(
         must=[
             models.FieldCondition(

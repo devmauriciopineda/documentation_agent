@@ -2,7 +2,6 @@ from typing import List, Optional
 
 import boto3
 import cohere_aws
-
 from config.config import settings
 
 REGION_NAME = settings.aws_region

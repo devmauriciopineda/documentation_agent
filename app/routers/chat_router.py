@@ -1,8 +1,8 @@
-from fastapi import APIRouter, Depends
-from db.pg_connection import get_db
-from sqlalchemy.orm import Session
-from schemas.schemas import Message
 from controllers import chat_controller
+from db.pg_connection import get_db
+from fastapi import APIRouter, Depends
+from schemas.schemas import Message
+from sqlalchemy.orm import Session
 
 router = APIRouter(prefix="/api/v1", tags=["chat"])
 

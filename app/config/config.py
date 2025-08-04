@@ -12,6 +12,9 @@ class Settings(BaseSettings):
     aws_rerank_model: str
     aws_rerank_region: str
 
+    # Google
+    google_api_key: str
+
     # Inference config
     llm_name: str
     temperature: float

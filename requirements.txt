@@ -4,6 +4,11 @@ celery==5.5.3
 cohere-aws==0.8.18
 fastapi==0.116.1
 flower==2.0.1
+google-genai
+langchain
+langchain_google_genai
+langgraph==0.6.3
+litellm==1.74.15.post1
 psycopg2-binary==2.9.10
 pydantic-settings==2.10.1
 qdrant-client==1.15.1
